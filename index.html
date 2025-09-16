@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Memo-Booster Start</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        padding: 50px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        background-color: #007acc;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🧠 Welcome to Memo-Booster</h1>
+    <p>Click below to earn your reward!</p>
+    <button id="startBtn">Go to Rewards</button>
+
+    <script>
+      document
+        .getElementById("startBtn")
+        .addEventListener("click", function () {
+          window.location.href = "reward.html"
+        })
+    </script>
+  </body>
+</html>

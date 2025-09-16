@@ -1,0 +1,36 @@
+START Memo-Booster Game
+
+DISPLAY Start Page (index.html)
+SHOW welcome message and "Go to Rewards" button
+
+WAIT for user to click "Go to Rewards"
+
+ON button click:
+    NAVIGATE to Reward Page (reward.html)
+
+DEFINE rewards as a list containing:
+    🥉 Bronze Token – +20 Memory Points
+    🥈 Silver Token – +50 Memory Points
+    🥇 Gold Token – +100 Memory Points
+    🏆 Platinum Token – +1000 Memory Points
+
+FUNCTION earnReward:
+    GENERATE a random index between 0 and length of rewards list
+    SELECT reward from rewards using the random index
+    FIND the HTML element with ID "rewardDisplay"
+    SET the inner HTML of "rewardDisplay" to a styled div containing the selected reward
+
+ON user clicking the "Earn a Reward" button:
+    CALL earnReward function
+
+    RANDOMLY SELECT one token from rewardTokens
+    DISPLAY selected token on screen
+
+WAIT for user to click "Get Another Reward"
+
+ON button click:
+    RANDOMLY SELECT a new token
+    UPDATE token display
+
+END
+
