@@ -1,36 +1,66 @@
-START Memo-Booster Game
+// Purpose
+// The purpose of "Dinar Connection" is to create an engaging game that  enhance their financial <!DOCTYPE html>
 
-DISPLAY Start Page (index.html)
-SHOW welcome message and "Go to Rewards" button
 
-WAIT for user to click "Go to Rewards"
+// Technologies Used
+SET technologies = ["HTML", "CSS", "JavaScript", "React", "Node.js", "MongoDB", "WebSocket"]
 
-ON button click:
-    NAVIGATE to Reward Page (reward.html)
+// Extra Features
+SET extraFeatures = [
+    "Multiplayer Mode", // Allow players to connect and compete with friends
+    "Leaderboard", // Track player scores and rankings
+    "In-Game Tutorials", // Provide guidance for new players
+    "Daily Challenges", // Offer rewards for completing specific tasks
+    "In-Game Store", // Buy upgrades or cosmetic items
+]
 
-DEFINE rewards as a list containing:
-    🥉 Bronze Token – +20 Memory Points
-    🥈 Silver Token – +50 Memory Points
-    🥇 Gold Token – +100 Memory Points
-    🏆 Platinum Token – +1000 Memory Points
+// Main Pages
+// Page 1: Home Page
+FUNCTION homePage()
+    DISPLAY "Welcome to Dinar Connection"
+    DISPLAY "Start Game" BUTTON
+    DISPLAY "How to Play" BUTTON
+    DISPLAY "Leaderboard" BUTTON
+    DISPLAY "Settings" BUTTON
+    IF "Start Game" BUTTON CLICKED THEN
+        CALL gamePage()
+    IF "How to Play" BUTTON CLICKED THEN
+        CALL tutorialPage()
+    IF "Leaderboard" BUTTON CLICKED THEN
+        CALL leaderboardPage()
+    IF "Settings" BUTTON CLICKED THEN
+        CALL settingsPage()
+END FUNCTION
 
-FUNCTION earnReward:
-    GENERATE a random index between 0 and length of rewards list
-    SELECT reward from rewards using the random index
-    FIND the HTML element with ID "rewardDisplay"
-    SET the inner HTML of "rewardDisplay" to a styled div containing the selected reward
+// Page 2: Game Page
+FUNCTION gamePage()
+    INITIALIZE gameBoard // Set up the game interface
+    WHILE game IS NOT OVER DO
+        DISPLAY currentPlayerTurn()
+        WAIT FOR playerAction() // Player makes a move
+        UPDATE gameBoard // Refresh board after action
+        CHECK gameStatus() // Check if someone has won
+    END WHILE
+    DISPLAY "Game Over" MESSAGE
+    CALL endGamePage()
+END FUNCTION
 
-ON user clicking the "Earn a Reward" button:
-    CALL earnReward function
+// Additional Functions
+FUNCTION tutorialPage()
+    DISPLAY tutorialInstructions()
+END FUNCTION
 
-    RANDOMLY SELECT one token from rewardTokens
-    DISPLAY selected token on screen
+FUNCTION leaderboardPage()
+    DISPLAY playerScores()
+END FUNCTION
 
-WAIT for user to click "Get Another Reward"
+FUNCTION settingsPage()
+    DISPLAY settingsOptions()
+END FUNCTION
 
-ON button click:
-    RANDOMLY SELECT a new token
-    UPDATE token display
-
-END
-
+FUNCTION endGamePage()
+    DISPLAY finalScores()
+    DISPLAY "Play Again" BUTTON
+    IF "Play Again" BUTTON CLICKED THEN
+        CALL gamePage()
+END FUNCTION
