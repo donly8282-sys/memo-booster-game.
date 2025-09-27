@@ -1,82 +1,143 @@
+/* ==================================== */
+/* 1. GLOBAL STYLES AND PAGE LAYOUT     */
+/* ==================================== */
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f4f4;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f0f4f8; /* Light background */
+  display: flex;
+  flex-direction: column; /* Stacks header, timer, game, and button vertically */
+  justify-content: center;
+  align-items: center; /* Centers everything horizontally */
+  min-height: 100vh;
   margin: 0;
-  padding: 40px 20px;
-  text-align: center;
+  padding: 20px;
 }
 
 h1 {
   color: #333;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
-.reward {
-  font-size: 1.4rem;
-  padding: 20px;
-  margin: 15px auto;
-  width: 80%;
-  max-width: 400px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: fadeIn 0.6s ease;
+#timer {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #4caf50; /* A pleasant green color */
+  margin-bottom: 20px;
 }
 
-.reward:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.bronze {
-  background-color: #cd7f32;
-  color: white;
-  text-shadow: 1px 1px 2px #5a3e1b;
-}
-
-.silver {
-  background-color: #c0c0c0;
-  color: #333;
-  text-shadow: 1px 1px 2px #888;
-}
-
-.gold {
-  background-color: #ffd700;
-  color: #333;
-  text-shadow: 1px 1px 2px #b8860b;
-  }
-
-
-.platinum {
-  background-color: #e5e4e2;
-  color: #222;
-  text-shadow: 1px 1px 2px #aaa;
-  border: 2px solid #b0b0b0;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-button {
-  padding: 12px 24px;
-  font-size: 1rem;
-  background-color: #007acc;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+a {
+  text-decoration: none;
+  font-weight: bold;
   margin-top: 20px;
+  color: #2196f3;
+}
+
+/* ==================================== */
+/* 2. GAME BOARD GRID CONTAINER         */
+/* ==================================== */
+.memory-game {
+  width: 700px;
+  height: 500px;
+  display: grid; /* ESSENTIAL: Enables the grid layout */
+  grid-template-columns: repeat(6, 1fr); /* 6 equal columns */
+  grid-template-rows: repeat(4, 1fr); /* 4 equal rows */
+  gap: 10px;
+  perspective: 1000px; /* Provides 3D perspective for the flip effect */
+}
+
+/* ==================================== */
+/* 3. INDIVIDUAL CARD STYLES            */
+/* ==================================== */
+.memory-card {
+  width: 110px;
+  height: 110px;
+  position: relative;
+  transform-style: preserve-3d; /* Allows the card faces to exist in 3D space */
+  transition: transform 0.5s; /* Smooth flip animation */
+  cursor: pointer;
+}
+
+.memory-card:hover {
+  transform: scale(1.03); /* Subtle hover lift effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Front and Back Face Styles */
+.front-face,
+.back-face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backface-visibility: hidden; /* Hides the back of the element during 3D rotation */
+}
+
+/* Back Face (The side facing the user before the flip) */
+.back-face {
+  background-color: #000000; /* Black card back */
+  color: #ffffff; /* White text for "TRY AGAIN!" */
+  font-size: 1.1em;
+  font-weight: bold;
+  display: flex; /* Flexbox to center the text */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Front Face (The image side) */
+.front-face {
+  transform: rotateY(180deg); /* CRITICAL: Hides the image initially */
+  object-fit: cover;
+}
+
+/* Card Flip Trigger (Added by JavaScript on click) */
+.memory-card.flip {
+  transform: rotateY(
+    180deg
+  ); /* Rotates the entire card to show the front face */
+}
+
+/* ==================================== */
+/* 4. BUTTON AND TOGGLE STYLES          */
+/* ==================================== */
+#play-again-button,
+#dark-mode-toggle,
+#mode-toggle {
+  padding: 10px 20px;
+  margin: 10px 5px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  background-color: #2196f3;
+  color: white;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #005fa3;
+#play-again-button:hover,
+#dark-mode-toggle:hover,
+#mode-toggle:hover {
+  background-color: #1976d2;
+}
+
+/* ==================================== */
+/* 5. DARK MODE STYLES                  */
+/* ==================================== */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode h1,
+body.dark-mode a {
+  color: #bb86fc; /* Purple accent for text */
+}
+
+body.dark-mode #timer {
+  color: #03dac6; /* Teal accent for timer */
+}
+
+body.dark-mode .back-face {
+  background-color: #333333; /* Dark card back */
+  color: #e0e0e0;
 }
